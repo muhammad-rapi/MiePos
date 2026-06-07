@@ -19,7 +19,9 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        loadFragment(new PosFragment());
+        if (savedInstanceState == null) {
+            loadFragment(new PosFragment());
+        }
 
         binding.bottomNav.setOnItemSelectedListener(item -> {
             Fragment fragment;

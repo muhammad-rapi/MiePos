@@ -32,7 +32,7 @@ public class ProfilFragment extends Fragment {
 
         ((MaterialButton) view.findViewById(R.id.btnLogout)).setOnClickListener(v -> {
             new AuthRepository().logout();
-            startActivity(new Intent(getActivity(), LoginActivity.class));
+            startActivity(new Intent(requireActivity(), LoginActivity.class));
             requireActivity().finish();
         });
 
