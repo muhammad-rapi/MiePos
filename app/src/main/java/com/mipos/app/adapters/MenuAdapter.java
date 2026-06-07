@@ -43,7 +43,8 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
         holder.tvName.setText(menu.getName());
         holder.tvPrice.setText(CurrencyUtils.format(menu.getPrice()));
 
-        switch (menu.getCategory()) {
+        String category = menu.getCategory() != null ? menu.getCategory() : "";
+        switch (category) {
             case "minuman": holder.tvEmoji.setText("🥤"); break;
             case "tambahan": holder.tvEmoji.setText("🍢"); break;
             default: holder.tvEmoji.setText("🍜"); break;
