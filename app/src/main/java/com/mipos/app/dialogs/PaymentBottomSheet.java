@@ -39,6 +39,10 @@ public class PaymentBottomSheet extends BottomSheetDialogFragment {
             ? viewModel.totalLiveData.getValue() : 0L;
         binding.tvPaymentTotal.setText(CurrencyUtils.format(total));
 
+        // Show cash inputs initially since Cash is the default selection
+        binding.tilCashInput.setVisibility(View.VISIBLE);
+        binding.layoutKembalian.setVisibility(View.VISIBLE);
+
         binding.rgPaymentMethod.setOnCheckedChangeListener((group, checkedId) -> {
             boolean isCash = checkedId == binding.rbCash.getId();
             boolean isQris = checkedId == binding.rbQris.getId();
@@ -78,7 +82,7 @@ public class PaymentBottomSheet extends BottomSheetDialogFragment {
 
         viewModel.transactionSuccessLiveData.observe(getViewLifecycleOwner(), success -> {
             if (Boolean.TRUE.equals(success)) {
-                Toast.makeText(getContext(), "✅ Transaksi Berhasil!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "✅ Transaksi Berhasil!", Toast.LENGTH_SHORT).show();
                 viewModel.clearCart();
                 viewModel.transactionSuccessLiveData.setValue(null);
                 dismiss();
@@ -87,7 +91,7 @@ public class PaymentBottomSheet extends BottomSheetDialogFragment {
 
         viewModel.errorLiveData.observe(getViewLifecycleOwner(), error -> {
             if (error != null && !error.isEmpty()) {
-                Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show();
                 viewModel.errorLiveData.setValue(null);
             }
         });
