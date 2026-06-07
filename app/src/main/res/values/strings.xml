@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MiePos</string>
+    <string name="login">Masuk</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="pos">POS</string>
+    <string name="laporan">Laporan</string>
+    <string name="profil">Profil</string>
+    <string name="total">Total</string>
+    <string name="bayar">Bayar</string>
+    <string name="cash">Cash</string>
+    <string name="qris">QRIS</string>
+    <string name="debit">Debit</string>
+    <string name="konfirmasi">Konfirmasi Pembayaran</string>
+    <string name="kembalian">Kembalian</string>
+    <string name="transaksi_berhasil">Transaksi Berhasil!</string>
+</resources>
