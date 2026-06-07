@@ -21,7 +21,11 @@ public class TransactionRepository {
                                  String paymentMethod,
                                  MutableLiveData<Boolean> successLiveData,
                                  MutableLiveData<String> errorLiveData) {
-        var currentUser = SessionManager.getInstance().getCurrentUser();
+        com.mipos.app.models.User currentUser = SessionManager.getInstance().getCurrentUser();
+        if (currentUser == null) {
+            errorLiveData.setValue("Sesi tidak valid, silakan login ulang");
+            return;
+        }
 
         List<TransactionItem> items = new ArrayList<>();
         for (CartItem c : cartItems) items.add(new TransactionItem(c));
