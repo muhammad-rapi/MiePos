@@ -26,9 +26,10 @@ public class PosViewModel extends ViewModel {
 
     public void addToCart(MenuItem menu) {
         List<CartItem> cart = new ArrayList<>(cartLiveData.getValue());
-        for (CartItem item : cart) {
+        for (int i = 0; i < cart.size(); i++) {
+            CartItem item = cart.get(i);
             if (item.getMenuId().equals(menu.getId())) {
-                item.setQty(item.getQty() + 1);
+                cart.set(i, new CartItem(item.getMenuId(), item.getMenuName(), item.getPrice(), item.getQty() + 1));
                 cartLiveData.setValue(cart);
                 recalcTotal(cart);
                 return;
@@ -42,7 +43,7 @@ public class PosViewModel extends ViewModel {
     public void increaseQty(int position) {
         List<CartItem> cart = new ArrayList<>(cartLiveData.getValue());
         CartItem item = cart.get(position);
-        item.setQty(item.getQty() + 1);
+        cart.set(position, new CartItem(item.getMenuId(), item.getMenuName(), item.getPrice(), item.getQty() + 1));
         cartLiveData.setValue(cart);
         recalcTotal(cart);
     }
@@ -53,7 +54,7 @@ public class PosViewModel extends ViewModel {
         if (item.getQty() <= 1) {
             cart.remove(position);
         } else {
-            item.setQty(item.getQty() - 1);
+            cart.set(position, new CartItem(item.getMenuId(), item.getMenuName(), item.getPrice(), item.getQty() - 1));
         }
         cartLiveData.setValue(cart);
         recalcTotal(cart);
