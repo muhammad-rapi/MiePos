@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import com.mipos.app.R;
 import com.mipos.app.databinding.ActivityMainBinding;
 import com.mipos.app.fragments.LaporanFragment;
+import com.mipos.app.fragments.ManajemenMenuFragment;
 import com.mipos.app.fragments.PosFragment;
 import com.mipos.app.fragments.ProfilFragment;
 import com.mipos.app.utils.SessionManager;
@@ -19,6 +20,11 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // Show/hide menu tab based on role
+        boolean isOwner = SessionManager.getInstance().getCurrentUser() != null
+            && SessionManager.getInstance().getCurrentUser().isOwner();
+        binding.bottomNav.getMenu().findItem(R.id.nav_menu).setVisible(isOwner);
+
         if (savedInstanceState == null) {
             loadFragment(new PosFragment());
         }
@@ -29,12 +35,10 @@ public class MainActivity extends AppCompatActivity {
             if (id == R.id.nav_pos) {
                 fragment = new PosFragment();
             } else if (id == R.id.nav_laporan) {
-                var user = SessionManager.getInstance().getCurrentUser();
-                if (user != null && user.isOwner()) {
-                    fragment = new LaporanFragment();
-                } else {
-                    return false;
-                }
+                fragment = new LaporanFragment();
+            } else if (id == R.id.nav_menu) {
+                if (!isOwner) return false;
+                fragment = new ManajemenMenuFragment();
             } else {
                 fragment = new ProfilFragment();
             }

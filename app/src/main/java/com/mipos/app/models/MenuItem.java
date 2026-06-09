@@ -6,6 +6,7 @@ public class MenuItem {
     private long price;
     private String category;
     private boolean available;
+    private String imageUrl;
 
     public MenuItem() {}
 
@@ -27,4 +28,6 @@ public class MenuItem {
     public void setCategory(String category) { this.category = category; }
     public boolean isAvailable() { return available; }
     public void setAvailable(boolean available) { this.available = available; }
+    public String getImageUrl() { return imageUrl; }
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
 }
