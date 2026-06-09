@@ -14,13 +14,13 @@
         android:orientation="vertical"
         android:padding="12dp">
 
-        <TextView
-            android:id="@+id/tvEmoji"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="🍜"
-            android:textSize="36sp" />
+        <ImageView
+            android:id="@+id/ivMenuIcon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_bowl"
+            android:contentDescription="Menu icon" />
 
         <TextView
             android:id="@+id/tvMenuName"

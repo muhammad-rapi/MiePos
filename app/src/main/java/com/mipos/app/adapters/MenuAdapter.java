@@ -3,6 +3,7 @@ package com.mipos.app.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,9 +46,9 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
 
         String category = menu.getCategory() != null ? menu.getCategory() : "";
         switch (category) {
-            case "minuman": holder.tvEmoji.setText("🥤"); break;
-            case "tambahan": holder.tvEmoji.setText("🍢"); break;
-            default: holder.tvEmoji.setText("🍜"); break;
+            case "minuman": holder.ivMenuIcon.setImageResource(R.drawable.ic_local_drink); break;
+            case "tambahan": holder.ivMenuIcon.setImageResource(R.drawable.ic_add_circle); break;
+            default: holder.ivMenuIcon.setImageResource(R.drawable.ic_bowl); break;
         }
 
         holder.itemView.setOnClickListener(v -> listener.onMenuClick(menu));
@@ -57,10 +58,11 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
     public int getItemCount() { return menus.size(); }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvEmoji, tvName, tvPrice;
+        ImageView ivMenuIcon;
+        TextView tvName, tvPrice;
         ViewHolder(View view) {
             super(view);
-            tvEmoji = view.findViewById(R.id.tvEmoji);
+            ivMenuIcon = view.findViewById(R.id.ivMenuIcon);
             tvName = view.findViewById(R.id.tvMenuName);
             tvPrice = view.findViewById(R.id.tvMenuPrice);
         }

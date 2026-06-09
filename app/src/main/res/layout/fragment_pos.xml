@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:background="@color/primary"
             android:padding="16dp"
-            android:text="🍜 Pilih Menu"
+            android:text="Pilih Menu"
             android:textColor="@color/on_primary"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:background="@color/primary_dark"
             android:padding="16dp"
-            android:text="🛒 Keranjang"
+            android:text="Keranjang"
             android:textColor="@color/on_primary"
             android:textSize="18sp"
             android:textStyle="bold" />

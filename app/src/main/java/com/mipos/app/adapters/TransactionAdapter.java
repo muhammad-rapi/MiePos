@@ -38,9 +38,9 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
         String methodEmoji;
         switch (t.getPaymentMethod() != null ? t.getPaymentMethod() : "") {
-            case "qris": methodEmoji = "📱 QRIS"; break;
-            case "debit": methodEmoji = "💳 Debit"; break;
-            default: methodEmoji = "💵 Cash"; break;
+            case "qris": methodEmoji = "QRIS"; break;
+            case "debit": methodEmoji = "Debit"; break;
+            default: methodEmoji = "Cash"; break;
         }
         holder.tvMethod.setText(methodEmoji);
 

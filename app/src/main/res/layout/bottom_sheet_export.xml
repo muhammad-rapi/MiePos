@@ -24,7 +24,8 @@
         android:text="Export PDF"
         android:textSize="16sp"
         android:layout_marginBottom="12dp"
-        app:cornerRadius="12dp" />
+        app:cornerRadius="12dp"
+        app:icon="@drawable/ic_pdf" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnExportCsv"
@@ -33,6 +34,7 @@
         android:layout_height="56dp"
         android:text="Export CSV (Excel)"
         android:textSize="16sp"
-        app:cornerRadius="12dp" />
+        app:cornerRadius="12dp"
+        app:icon="@drawable/ic_spreadsheet" />
 
 </LinearLayout>

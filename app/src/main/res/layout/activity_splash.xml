@@ -6,19 +6,32 @@
     android:layout_height="match_parent"
     android:background="@color/primary">
 
+    <ImageView
+        android:id="@+id/ivSplashLogo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_launcher_foreground"
+        android:padding="8dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="Logo"
+        app:layout_constraintBottom_toTopOf="@id/tvAppName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
     <TextView
         android:id="@+id/tvAppName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="🍜 MiePos"
+        android:text="MiePos"
         android:textColor="@color/on_primary"
         android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/tvTagline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintTop_toBottomOf="@id/ivSplashLogo" />
 
     <TextView
         android:id="@+id/tvTagline"

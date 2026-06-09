@@ -30,7 +30,8 @@
         android:layout_height="56dp"
         android:layout_marginTop="24dp"
         android:text="Pengaturan QRIS"
-        app:cornerRadius="12dp" />
+        app:cornerRadius="12dp"
+        app:icon="@drawable/ic_qr_code" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnPengaturanPrinter"
@@ -39,7 +40,8 @@
         android:layout_height="56dp"
         android:layout_marginTop="8dp"
         android:text="Pengaturan Printer"
-        app:cornerRadius="12dp" />
+        app:cornerRadius="12dp"
+        app:icon="@drawable/ic_print" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnLogout"
