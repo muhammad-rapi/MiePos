@@ -34,10 +34,11 @@
 
     <ImageButton
         android:id="@+id/btnDecrease"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:src="@android:drawable/ic_input_delete"
+        android:src="@drawable/ic_remove"
+        android:padding="4dp"
         android:contentDescription="kurang" />
 
     <TextView
@@ -51,10 +52,11 @@
 
     <ImageButton
         android:id="@+id/btnIncrease"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:src="@android:drawable/ic_input_add"
+        android:src="@drawable/ic_add"
+        android:padding="4dp"
         android:contentDescription="tambah" />
 
 </LinearLayout>

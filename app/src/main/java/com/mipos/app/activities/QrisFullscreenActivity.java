@@ -30,11 +30,10 @@ public class QrisFullscreenActivity extends AppCompatActivity {
 
         tvTotal.setText(CurrencyUtils.format(total));
 
-        if (qrisUrl != null && !qrisUrl.isEmpty()) {
-            Glide.with(this).load(qrisUrl).into(ivQris);
-        } else {
-            ivQris.setImageResource(android.R.drawable.ic_menu_gallery);
-        }
+        String urlToLoad = (qrisUrl != null && !qrisUrl.isEmpty())
+            ? qrisUrl
+            : "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=DEMO-QRIS-MIEPOS&color=FF6B35";
+        Glide.with(this).load(urlToLoad).into(ivQris);
 
         btnKonfirmasi.setOnClickListener(v -> {
             setResult(RESULT_CONFIRMED);

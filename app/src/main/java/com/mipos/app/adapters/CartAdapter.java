@@ -45,14 +45,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         holder.tvName.setText(item.getMenuName());
         holder.tvSubtotal.setText(CurrencyUtils.format(item.getSubtotal()));
         holder.tvQty.setText(String.valueOf(item.getQty()));
-        holder.btnIncrease.setOnClickListener(v -> {
-            int pos = holder.getAdapterPosition();
-            if (pos != RecyclerView.NO_POSITION) listener.onIncrease(pos);
-        });
-        holder.btnDecrease.setOnClickListener(v -> {
-            int pos = holder.getAdapterPosition();
-            if (pos != RecyclerView.NO_POSITION) listener.onDecrease(pos);
-        });
+        final int bindPos = position;
+        holder.btnIncrease.setOnClickListener(v -> listener.onIncrease(bindPos));
+        holder.btnDecrease.setOnClickListener(v -> listener.onDecrease(bindPos));
     }
 
     @Override
