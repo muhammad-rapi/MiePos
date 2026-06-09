@@ -54,21 +54,30 @@ public class ExportBottomSheet extends BottomSheetDialogFragment {
     private void exportAndShare(String type) {
         binding.btnExportPdf.setEnabled(false);
         binding.btnExportCsv.setEnabled(false);
+
+        // Capture context & activity BEFORE going to background thread
+        android.content.Context ctx = requireContext().getApplicationContext();
+        android.app.Activity activity = requireActivity();
+
         executor.execute(() -> {
             try {
                 File file = type.equals("pdf")
-                    ? ExportManager.exportPdf(requireContext(), "MiePos", period, transactions, totalPemasukan, byMethod)
-                    : ExportManager.exportCsv(requireContext(), period, transactions, totalPemasukan, byMethod);
+                    ? ExportManager.exportPdf(ctx, "MiePos", period, transactions, totalPemasukan, byMethod)
+                    : ExportManager.exportCsv(ctx, period, transactions, totalPemasukan, byMethod);
 
-                requireActivity().runOnUiThread(() -> {
-                    shareFile(file, type.equals("pdf") ? "application/pdf" : "text/csv");
-                    dismiss();
+                activity.runOnUiThread(() -> {
+                    if (isAdded()) {
+                        shareFile(file, type.equals("pdf") ? "application/pdf" : "text/csv");
+                        dismiss();
+                    }
                 });
             } catch (Exception e) {
-                requireActivity().runOnUiThread(() -> {
-                    Toast.makeText(requireContext(), "Gagal export: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    binding.btnExportPdf.setEnabled(true);
-                    binding.btnExportCsv.setEnabled(true);
+                activity.runOnUiThread(() -> {
+                    if (isAdded() && binding != null) {
+                        Toast.makeText(ctx, "Gagal export: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        binding.btnExportPdf.setEnabled(true);
+                        binding.btnExportCsv.setEnabled(true);
+                    }
                 });
             }
         });

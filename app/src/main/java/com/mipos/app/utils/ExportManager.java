@@ -138,7 +138,9 @@ public class ExportManager {
     }
 
     private static File getExportDir(Context context) {
-        File dir = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), "MiePos");
+        File base = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
+        if (base == null) base = context.getFilesDir(); // fallback ke internal storage
+        File dir = new File(base, "MiePos");
         if (!dir.exists()) dir.mkdirs();
         return dir;
     }
