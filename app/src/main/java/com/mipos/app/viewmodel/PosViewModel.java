@@ -20,6 +20,10 @@ public class PosViewModel extends ViewModel {
     public final MutableLiveData<String> errorLiveData = new MutableLiveData<>();
     public final MutableLiveData<String> selectedCategory = new MutableLiveData<>("mie_ayam");
 
+    public List<CartItem> lastCartSnapshot = new ArrayList<>();
+    public long lastTotalSnapshot = 0L;
+    public String lastPaymentMethod = "cash";
+
     public void loadMenus() {
         menuRepository.getMenus(menusLiveData, errorLiveData);
     }
@@ -78,6 +82,9 @@ public class PosViewModel extends ViewModel {
             return;
         }
         long total = totalLiveData.getValue();
+        lastCartSnapshot = new ArrayList<>(cart);
+        lastTotalSnapshot = total;
+        lastPaymentMethod = paymentMethod;
         transactionRepository.saveTransaction(cart, total, paymentMethod,
             transactionSuccessLiveData, errorLiveData);
     }

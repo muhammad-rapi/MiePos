@@ -42,6 +42,18 @@ public class ProfilFragment extends Fragment {
             btnQris.setVisibility(View.GONE);
         }
 
+        MaterialButton btnPrinter = view.findViewById(R.id.btnPengaturanPrinter);
+        if (user != null && user.isOwner()) {
+            btnPrinter.setVisibility(View.VISIBLE);
+            btnPrinter.setOnClickListener(v ->
+                requireActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragmentContainer, new PrinterSettingsFragment())
+                    .addToBackStack(null)
+                    .commit());
+        } else {
+            btnPrinter.setVisibility(View.GONE);
+        }
+
         ((MaterialButton) view.findViewById(R.id.btnLogout)).setOnClickListener(v -> {
             new AuthRepository().logout();
             startActivity(new Intent(requireActivity(), LoginActivity.class));

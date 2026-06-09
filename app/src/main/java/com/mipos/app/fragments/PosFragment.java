@@ -11,12 +11,16 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.snackbar.Snackbar;
 import com.mipos.app.adapters.CartAdapter;
 import com.mipos.app.adapters.MenuAdapter;
 import com.mipos.app.databinding.FragmentPosBinding;
 import com.mipos.app.dialogs.PaymentBottomSheet;
+import com.mipos.app.models.CartItem;
 import com.mipos.app.utils.CurrencyUtils;
+import com.mipos.app.utils.PrinterManager;
 import com.mipos.app.viewmodel.PosViewModel;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class PosFragment extends Fragment {
@@ -107,6 +111,34 @@ public class PosFragment extends Fragment {
 
         viewModel.totalLiveData.observe(getViewLifecycleOwner(), total ->
             binding.tvTotal.setText(CurrencyUtils.format(total)));
+
+        viewModel.transactionSuccessLiveData.observe(getViewLifecycleOwner(), success -> {
+            if (!Boolean.TRUE.equals(success)) return;
+            List<CartItem> lastCart = viewModel.lastCartSnapshot;
+            long lastTotal = viewModel.lastTotalSnapshot;
+            String lastMethod = viewModel.lastPaymentMethod;
+            if (lastCart == null || lastCart.isEmpty()) return;
+            PrinterManager.getInstance().print(
+                requireContext(), lastCart, lastTotal, lastMethod, 0,
+                new PrinterManager.PrintCallback() {
+                    @Override public void onSuccess() { /* silent */ }
+                    @Override public void onError(String message) {
+                        requireActivity().runOnUiThread(() -> {
+                            if (binding == null) return;
+                            Snackbar.make(binding.getRoot(),
+                                    "Printer: " + message, Snackbar.LENGTH_LONG)
+                                .setAction("Coba Lagi", v ->
+                                    PrinterManager.getInstance().print(
+                                        requireContext(), lastCart, lastTotal, lastMethod, 0,
+                                        new PrinterManager.PrintCallback() {
+                                            @Override public void onSuccess() {}
+                                            @Override public void onError(String m) {}
+                                        }))
+                                .show();
+                        });
+                    }
+                });
+        });
     }
 
     @Override

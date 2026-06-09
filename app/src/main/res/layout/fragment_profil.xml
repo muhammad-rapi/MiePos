@@ -33,6 +33,15 @@
         app:cornerRadius="12dp" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnPengaturanPrinter"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="8dp"
+        android:text="Pengaturan Printer"
+        app:cornerRadius="12dp" />
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnLogout"
         android:layout_width="match_parent"
         android:layout_height="56dp"
