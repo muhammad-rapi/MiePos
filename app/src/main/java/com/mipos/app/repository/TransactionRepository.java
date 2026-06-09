@@ -44,6 +44,28 @@ public class TransactionRepository {
             .addOnFailureListener(e -> errorLiveData.setValue(e.getMessage()));
     }
 
+    public void getTransactionsByRange(Date start, Date end,
+                                        Consumer<List<Transaction>> onSuccess,
+                                        MutableLiveData<String> errorLiveData) {
+        Timestamp startTs = new Timestamp(start);
+        Timestamp endTs = new Timestamp(end);
+        db.collection("transactions")
+            .whereGreaterThanOrEqualTo("timestamp", startTs)
+            .whereLessThanOrEqualTo("timestamp", endTs)
+            .orderBy("timestamp", Query.Direction.DESCENDING)
+            .get()
+            .addOnSuccessListener(snapshots -> {
+                List<Transaction> list = new ArrayList<>();
+                for (var doc : snapshots) {
+                    Transaction t = doc.toObject(Transaction.class);
+                    t.setId(doc.getId());
+                    list.add(t);
+                }
+                onSuccess.accept(list);
+            })
+            .addOnFailureListener(e -> errorLiveData.postValue(e.getMessage()));
+    }
+
     public void getTodayTransactions(Consumer<List<Transaction>> onSuccess,
                                       MutableLiveData<String> errorLiveData) {
         Calendar cal = Calendar.getInstance();

@@ -9,6 +9,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import com.google.android.material.chip.ChipGroup;
+import com.mipos.app.R;
 import com.mipos.app.adapters.TransactionAdapter;
 import com.mipos.app.databinding.FragmentLaporanBinding;
 import com.mipos.app.utils.CurrencyUtils;
@@ -36,11 +38,33 @@ public class LaporanFragment extends Fragment {
         binding.rvTransactions.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rvTransactions.setAdapter(adapter);
 
+        binding.chipGroupPeriod.setOnCheckedStateChangeListener((group, checkedIds) -> {
+            if (checkedIds.isEmpty()) return;
+            int id = checkedIds.get(0);
+            if (id == R.id.chipHariIni) {
+                viewModel.loadReport("daily");
+                binding.tvListHeader.setText("Transaksi Hari Ini");
+            } else if (id == R.id.chipMingguIni) {
+                viewModel.loadReport("weekly");
+                binding.tvListHeader.setText("Transaksi Minggu Ini");
+            } else if (id == R.id.chipBulanIni) {
+                viewModel.loadReport("monthly");
+                binding.tvListHeader.setText("Transaksi Bulan Ini");
+            }
+        });
+
+        binding.btnExport.setOnClickListener(v -> {
+            // Export handled in Task 4
+        });
+
         viewModel.totalTransaksi.observe(getViewLifecycleOwner(), count ->
             binding.tvTotalTransaksi.setText(String.valueOf(count)));
 
         viewModel.totalPemasukan.observe(getViewLifecycleOwner(), total ->
             binding.tvTotalPemasukan.setText(CurrencyUtils.format(total)));
+
+        viewModel.rataRata.observe(getViewLifecycleOwner(), avg ->
+            binding.tvRataRata.setText(CurrencyUtils.format(avg)));
 
         viewModel.byPaymentMethod.observe(getViewLifecycleOwner(), map -> {
             binding.tvCashTotal.setText(CurrencyUtils.format(map.getOrDefault("cash", 0L)));
@@ -51,7 +75,7 @@ public class LaporanFragment extends Fragment {
         viewModel.transactionsLiveData.observe(getViewLifecycleOwner(), transactions ->
             adapter.setTransactions(transactions));
 
-        viewModel.loadTodayReport();
+        viewModel.loadReport("daily");
     }
 
     @Override
