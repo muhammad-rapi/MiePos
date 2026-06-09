@@ -6,6 +6,8 @@
 /build
 app/build
 .claude/
+.claude-flow/
+docs/superpowers/
 /captures
 .externalNativeBuild
 .cxx
