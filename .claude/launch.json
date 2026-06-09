@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "MiePos Web",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "-s", "web", "-l", "3456"],
+      "port": 3456
+    }
+  ]
+}

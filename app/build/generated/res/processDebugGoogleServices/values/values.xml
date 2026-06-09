@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="gcm_defaultSenderId" translatable="false">816377032859</string>
+    <string name="google_api_key" translatable="false">AIzaSyD6hFfpV5QNpg-Gr8eNIrmZWNLrbA1UnTA</string>
+    <string name="google_app_id" translatable="false">1:816377032859:android:809d67af18db89eb19d63e</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyD6hFfpV5QNpg-Gr8eNIrmZWNLrbA1UnTA</string>
+    <string name="google_storage_bucket" translatable="false">miepos-c7764.firebasestorage.app</string>
+    <string name="project_id" translatable="false">miepos-c7764</string>
+</resources>

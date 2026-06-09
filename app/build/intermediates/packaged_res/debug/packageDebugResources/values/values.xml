@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="accent">#E84545</color>
+    <color name="background">#FFF8F0</color>
+    <color name="card_blue">#E3F2FD</color>
+    <color name="card_green">#E8F5E9</color>
+    <color name="card_orange">#FFF3EC</color>
+    <color name="card_yellow">#FFF8E1</color>
+    <color name="divider">#FFE4CC</color>
+    <color name="error">#C62828</color>
+    <color name="on_primary">#FFFFFF</color>
+    <color name="primary">#FF6B35</color>
+    <color name="primary_dark">#E85D2B</color>
+    <color name="primary_light">#FFAA80</color>
+    <color name="secondary">#FFB800</color>
+    <color name="secondary_dark">#E0A000</color>
+    <color name="success">#2E7D32</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="text_primary">#1A1A1A</color>
+    <color name="text_secondary">#757575</color>
+    <string name="app_name">MiePos</string>
+    <string name="bayar">Bayar</string>
+    <string name="cash">Cash</string>
+    <string name="debit">Debit</string>
+    <string name="email">Email</string>
+    <string name="gcm_defaultSenderId" translatable="false">816377032859</string>
+    <string name="google_api_key" translatable="false">AIzaSyD6hFfpV5QNpg-Gr8eNIrmZWNLrbA1UnTA</string>
+    <string name="google_app_id" translatable="false">1:816377032859:android:809d67af18db89eb19d63e</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyD6hFfpV5QNpg-Gr8eNIrmZWNLrbA1UnTA</string>
+    <string name="google_storage_bucket" translatable="false">miepos-c7764.firebasestorage.app</string>
+    <string name="kembalian">Kembalian</string>
+    <string name="konfirmasi">Konfirmasi Pembayaran</string>
+    <string name="laporan">Laporan</string>
+    <string name="login">Masuk</string>
+    <string name="password">Password</string>
+    <string name="pos">POS</string>
+    <string name="profil">Profil</string>
+    <string name="project_id" translatable="false">miepos-c7764</string>
+    <string name="qris">QRIS</string>
+    <string name="total">Total</string>
+    <string name="transaksi_berhasil">Transaksi Berhasil!</string>
+    <style name="Theme.MiePos" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryContainer">@color/primary_light</item>
+        <item name="colorOnPrimaryContainer">@color/text_primary</item>
+        <item name="colorOnPrimary">@color/on_primary</item>
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorSecondaryContainer">@color/card_yellow</item>
+        <item name="android:colorBackground">@color/background</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorError">@color/error</item>
+    </style>
+    <style name="Theme.MiePos.Splash" parent="Theme.MiePos">
+        <item name="android:windowBackground">@color/primary</item>
+    </style>
+</resources>

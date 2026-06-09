@@ -1,0 +1,54 @@
+[
+    {
+        "merged": "/Users/mac/.gradle/daemon/8.11.1/com.mipos.app-debug-41:/menu_bottom_nav_menu.xml.flat",
+        "source": "/Users/mac/.gradle/daemon/8.11.1/com.mipos.app-main-43:/menu/bottom_nav_menu.xml"
+    },
+    {
+        "merged": "/Users/mac/.gradle/daemon/8.11.1/com.mipos.app-debug-41:/layout_activity_login.xml.flat",
+        "source": "/Users/mac/.gradle/daemon/8.11.1/com.mipos.app-main-43:/layout/activity_login.xml"
+    },
+    {
+        "merged": "/Users/mac/.gradle/daemon/8.11.1/com.mipos.app-debug-41:/layout_bottom_sheet_payment.xml.flat",
+        "source": "/Users/mac/.gradle/daemon/8.11.1/com.mipos.app-main-43:/layout/bottom_sheet_payment.xml"
+    },
+    {
+        "merged": "/Users/mac/.gradle/daemon/8.11.1/com.mipos.app-debug-41:/layout_fragment_pos.xml.flat",
+        "source": "/Users/mac/.gradle/daemon/8.11.1/com.mipos.app-main-43:/layout/fragment_pos.xml"
+    },
+    {
+        "merged": "/Users/mac/.gradle/daemon/8.11.1/com.mipos.app-debug-41:/layout_item_menu_grid.xml.flat",
+        "source": "/Users/mac/.gradle/daemon/8.11.1/com.mipos.app-main-43:/layout/item_menu_grid.xml"
+    },
+    {
+        "merged": "com.mipos.app-debug-41:/xml_file_provider_paths.xml.flat",
+        "source": "com.mipos.app-main-43:/xml/file_provider_paths.xml"
+    },
+    {
+        "merged": "/Users/mac/.gradle/daemon/8.11.1/com.mipos.app-debug-41:/layout_activity_splash.xml.flat",
+        "source": "/Users/mac/.gradle/daemon/8.11.1/com.mipos.app-main-43:/layout/activity_splash.xml"
+    },
+    {
+        "merged": "/Users/mac/.gradle/daemon/8.11.1/com.mipos.app-debug-41:/layout_item_cart.xml.flat",
+        "source": "/Users/mac/.gradle/daemon/8.11.1/com.mipos.app-main-43:/layout/item_cart.xml"
+    },
+    {
+        "merged": "/Users/mac/.gradle/daemon/8.11.1/com.mipos.app-debug-41:/layout_fragment_laporan.xml.flat",
+        "source": "/Users/mac/.gradle/daemon/8.11.1/com.mipos.app-main-43:/layout/fragment_laporan.xml"
+    },
+    {
+        "merged": "com.mipos.app-debug-41:/layout_bottom_sheet_export.xml.flat",
+        "source": "com.mipos.app-main-43:/layout/bottom_sheet_export.xml"
+    },
+    {
+        "merged": "/Users/mac/.gradle/daemon/8.11.1/com.mipos.app-debug-41:/layout_item_transaction.xml.flat",
+        "source": "/Users/mac/.gradle/daemon/8.11.1/com.mipos.app-main-43:/layout/item_transaction.xml"
+    },
+    {
+        "merged": "/Users/mac/.gradle/daemon/8.11.1/com.mipos.app-debug-41:/layout_activity_main.xml.flat",
+        "source": "/Users/mac/.gradle/daemon/8.11.1/com.mipos.app-main-43:/layout/activity_main.xml"
+    },
+    {
+        "merged": "/Users/mac/.gradle/daemon/8.11.1/com.mipos.app-debug-41:/layout_fragment_profil.xml.flat",
+        "source": "/Users/mac/.gradle/daemon/8.11.1/com.mipos.app-main-43:/layout/fragment_profil.xml"
+    }
+]
