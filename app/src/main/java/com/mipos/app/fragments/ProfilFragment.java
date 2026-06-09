@@ -30,6 +30,18 @@ public class ProfilFragment extends Fragment {
                 user.isOwner() ? "Owner" : "Kasir");
         }
 
+        MaterialButton btnQris = view.findViewById(R.id.btnPengaturanQris);
+        if (user != null && user.isOwner()) {
+            btnQris.setVisibility(View.VISIBLE);
+            btnQris.setOnClickListener(v ->
+                requireActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragmentContainer, new PengaturanQrisFragment())
+                    .addToBackStack(null)
+                    .commit());
+        } else {
+            btnQris.setVisibility(View.GONE);
+        }
+
         ((MaterialButton) view.findViewById(R.id.btnLogout)).setOnClickListener(v -> {
             new AuthRepository().logout();
             startActivity(new Intent(requireActivity(), LoginActivity.class));

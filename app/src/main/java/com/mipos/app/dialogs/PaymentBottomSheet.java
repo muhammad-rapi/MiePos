@@ -1,5 +1,6 @@
 package com.mipos.app.dialogs;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -7,20 +8,40 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.MutableLiveData;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.mipos.app.R;
+import com.mipos.app.activities.QrisFullscreenActivity;
 import com.mipos.app.databinding.BottomSheetPaymentBinding;
+import com.mipos.app.repository.StoreRepository;
 import com.mipos.app.utils.CurrencyUtils;
 import com.mipos.app.viewmodel.PosViewModel;
 
 public class PaymentBottomSheet extends BottomSheetDialogFragment {
     private BottomSheetPaymentBinding binding;
     private final PosViewModel viewModel;
+    private long total;
+    private String pendingQrisUrl;
+
+    private ActivityResultLauncher<Intent> qrisLauncher;
 
     public PaymentBottomSheet(PosViewModel viewModel) {
         this.viewModel = viewModel;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        qrisLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == QrisFullscreenActivity.RESULT_CONFIRMED) {
+                    viewModel.processPayment("qris");
+                }
+            });
     }
 
     @Nullable
@@ -35,13 +56,16 @@ public class PaymentBottomSheet extends BottomSheetDialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        long total = viewModel.totalLiveData.getValue() != null
-            ? viewModel.totalLiveData.getValue() : 0L;
+        total = viewModel.totalLiveData.getValue() != null ? viewModel.totalLiveData.getValue() : 0L;
         binding.tvPaymentTotal.setText(CurrencyUtils.format(total));
 
-        // Show cash inputs initially since Cash is the default selection
         binding.tilCashInput.setVisibility(View.VISIBLE);
         binding.layoutKembalian.setVisibility(View.VISIBLE);
+
+        // Prefetch QRIS URL
+        MutableLiveData<String> urlLiveData = new MutableLiveData<>();
+        new StoreRepository().getQrisImageUrl(urlLiveData, new MutableLiveData<>());
+        urlLiveData.observe(getViewLifecycleOwner(), url -> pendingQrisUrl = url);
 
         binding.rgPaymentMethod.setOnCheckedChangeListener((group, checkedId) -> {
             boolean isCash = checkedId == binding.rbCash.getId();
@@ -61,8 +85,8 @@ public class PaymentBottomSheet extends BottomSheetDialogFragment {
                     binding.tvKembalian.setText(CurrencyUtils.format(Math.max(kembalian, 0)));
                     binding.tvKembalian.setTextColor(
                         kembalian >= 0
-                            ? requireContext().getColor(R.color.success)
-                            : requireContext().getColor(R.color.error));
+                            ? requireContext().getColor(com.mipos.app.R.color.success)
+                            : requireContext().getColor(com.mipos.app.R.color.error));
                 } catch (NumberFormatException e) {
                     binding.tvKembalian.setText("-");
                 }
@@ -71,18 +95,24 @@ public class PaymentBottomSheet extends BottomSheetDialogFragment {
         });
 
         binding.btnConfirmPayment.setOnClickListener(v -> {
-            String method;
             int checked = binding.rgPaymentMethod.getCheckedRadioButtonId();
-            if (checked == binding.rbCash.getId()) method = "cash";
-            else if (checked == binding.rbQris.getId()) method = "qris";
-            else method = "debit";
+            if (checked == binding.rbQris.getId()) {
+                Intent intent = new Intent(requireContext(), QrisFullscreenActivity.class);
+                intent.putExtra(QrisFullscreenActivity.EXTRA_QRIS_URL, pendingQrisUrl);
+                intent.putExtra(QrisFullscreenActivity.EXTRA_TOTAL, finalTotal);
+                qrisLauncher.launch(intent);
+                return;
+            }
 
+            String method;
+            if (checked == binding.rbCash.getId()) method = "cash";
+            else method = "debit";
             viewModel.processPayment(method);
         });
 
         viewModel.transactionSuccessLiveData.observe(getViewLifecycleOwner(), success -> {
             if (Boolean.TRUE.equals(success)) {
-                Toast.makeText(requireContext(), "✅ Transaksi Berhasil!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "Transaksi Berhasil!", Toast.LENGTH_SHORT).show();
                 viewModel.clearCart();
                 viewModel.transactionSuccessLiveData.setValue(null);
                 dismiss();
