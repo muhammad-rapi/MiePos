@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -13,8 +14,12 @@ import com.google.android.material.chip.ChipGroup;
 import com.mipos.app.R;
 import com.mipos.app.adapters.TransactionAdapter;
 import com.mipos.app.databinding.FragmentLaporanBinding;
+import com.mipos.app.dialogs.ExportBottomSheet;
+import com.mipos.app.models.Transaction;
 import com.mipos.app.utils.CurrencyUtils;
 import com.mipos.app.viewmodel.LaporanViewModel;
+import java.util.List;
+import java.util.Map;
 
 public class LaporanFragment extends Fragment {
     private FragmentLaporanBinding binding;
@@ -54,7 +59,18 @@ public class LaporanFragment extends Fragment {
         });
 
         binding.btnExport.setOnClickListener(v -> {
-            // Export handled in Task 4
+            List<Transaction> txList = viewModel.transactionsLiveData.getValue();
+            Long total = viewModel.totalPemasukan.getValue();
+            Map<String, Long> byMethod = viewModel.byPaymentMethod.getValue();
+            String period = viewModel.selectedPeriod.getValue();
+            if (txList == null || txList.isEmpty()) {
+                Toast.makeText(getContext(), "Tidak ada data untuk diexport", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            new ExportBottomSheet(txList, total != null ? total : 0L,
+                byMethod != null ? byMethod : new java.util.HashMap<>(),
+                period != null ? period : "daily")
+                .show(getChildFragmentManager(), "export");
         });
 
         viewModel.totalTransaksi.observe(getViewLifecycleOwner(), count ->
