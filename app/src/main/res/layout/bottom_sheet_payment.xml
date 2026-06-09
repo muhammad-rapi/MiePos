@@ -111,16 +111,32 @@
             android:textColor="@color/success" />
     </LinearLayout>
 
-    <TextView
+    <LinearLayout
         android:id="@+id/tvQrisPlaceholder"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:gravity="center"
-        android:text="[ QRIS Code — Demo ]"
-        android:background="#F0F0F0"
-        android:textColor="@color/text_secondary"
+        android:background="@color/card_orange"
+        android:padding="16dp"
         android:layout_marginBottom="16dp"
-        android:visibility="gone" />
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="📱"
+            android:textSize="32sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tap &quot;Konfirmasi&quot; untuk tampilkan QR Code"
+            android:textSize="13sp"
+            android:textColor="@color/text_secondary"
+            android:gravity="center"
+            android:layout_marginTop="4dp" />
+    </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnConfirmPayment"
