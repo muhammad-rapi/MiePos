@@ -99,8 +99,11 @@ public class ExportManager {
         File dir = getExportDir(context);
         String filename = "laporan_" + new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date()) + ".pdf";
         File file = new File(dir, filename);
-        document.writeTo(new FileOutputStream(file));
-        document.close();
+        try (FileOutputStream fos = new FileOutputStream(file)) {
+            document.writeTo(fos);
+        } finally {
+            document.close();
+        }
         return file;
     }
 
@@ -138,9 +141,9 @@ public class ExportManager {
     }
 
     private static File getExportDir(Context context) {
-        File base = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
-        if (base == null) base = context.getFilesDir(); // fallback ke internal storage
-        File dir = new File(base, "MiePos");
+        // Gunakan cacheDir - selalu ada, tidak perlu permission, dan FileProvider bisa
+        // serve tanpa masalah path mismatch seperti yg terjadi di external storage.
+        File dir = new File(context.getCacheDir(), "MiePos");
         if (!dir.exists()) dir.mkdirs();
         return dir;
     }
